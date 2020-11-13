@@ -29,7 +29,8 @@ void listDir(char dirname[])
                 printf("d %s/%s\n", dirname, dent->d_name);
                 //listDir(dent->d_name);
             }
-            // se for so um else e depois o print, dá na mesma
+            //? Não sei como por isto a dar com a recursividade
+            //! se for so um else e depois o print, dá na mesma
             else if(dent->d_type == DT_REG)
             {
                 printf("  %s/%s\n", dirname, dent->d_name);
