@@ -1,0 +1,3 @@
+command to see the amount of time of the functions
+
+$ gprof [executable-name] gmon.out > [name-of-file-that-will-contain-profiling-data]

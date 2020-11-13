@@ -1,0 +1,67 @@
+-----------------------------------------------------------------------------------------------------------------
+------------------------------------------- Apontamentos Aula 5 -------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+
+
+FASES DE UM PROGRAMA EM C
+
+Prog.c --> programa c 
+Pre-processamento --> o principal que o pre-processador faz é ir buscar as bibliotecas, resolver macros, etc...
+Compilação -->  transorma C em código máquina (compilar sem linkar -c)
+Linkagem --> código máquina, compilado o nosso prog e o conjunto de bibliotecas para gerar o executábel
+Executável
+
+
+MAIN: (argumentos do main em C)
+
+argc: contador de args 
+*argv[]: argumentos que sao passados
+
+para acabar uma função usar tanto o return != 0, como o exit(0)...
+
+* --> CONTEÚDO
+& --> ENDEREÇO
+
+um int ocupa 4 bytes
+
+int *pi = 8bytes
+char *pc = 8bytes
+char s3[5] = "ola" -> quando encontra o carater nulo, é pq acabou
+char ch = 1byte
+
+int c[1] = *pi --> nnc devemos fazer isto se nao soubermos para onde é que isto está a apontar
+(Ok, ponteiros são uma cagada)
+
+{
+int *pi;
+a = 25;
+b = 50;
+c[0] = a + b;
+c[1] = *pi;
+*pi = 110;
+} 
+neste bloco de código basicamente alteramos o valor de a para 110
+
+quando somamos a um apontador de int um, subimos 4 bytes
+quando somamos a um apontador de char um, subimos 1 byte
+(a mesma logica como era em IAC)
+
+*(p + i) = p[i];
+pi[2] = *(pi + 2);
+*(c + 1) = 0 <=> c[1] = 0
+
+O nome de um array sozinho representa em C, o endereço do 1º elemento do array (ex: c = &c[0])
+
+pi = c + 1 <=> pi = c[1]
+pi[1] = 400 <=> c[2] = 400 
+
+C OPERATOR PREFERENCE
+https://en.cppreference.com/w/c/language/operator_precedence
+
+int *v1[5]; :: O que é que tem precedencia * ou []?
+O [], ent o v1 é um array
+e o conteudo(*) de cada elemento do array um ponteiro para int
+
+int (*v2)[5]; --> apontador para um array de 5 inteiros
+
+char **v3; --> ponteiro para um ponteiro para char

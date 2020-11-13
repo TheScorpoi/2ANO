@@ -1,0 +1,12 @@
+#!/bin/bash
+#Funciona tipo uma main, é aqui que chamamos as funções
+
+
+#source $PWD/functions.sh #maneira mais simples? para ir buscar a source, like an import in java I think 
+
+#calling the functions
+
+imprime_msg
+imprime_data
+imprime_hostName
+imprime_User

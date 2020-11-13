@@ -1,0 +1,56 @@
+----------------------------------------------------------------------------------------------------------
+----------------------------------------- Apontamentos Aula04 --------------------------------------------
+----------------------------------------------------------------------------------------------------------
+
+$id -u -n == $whoami == $who --> commands para saber o nome do utilizador
+$hostname --> para saber o nome do computador
+
+
+FUNÇÕES:
+- convem em todas as funcoes fazer um return
+
+-criamos um ficheiro so com funções, tipo uma biblioteca só de funcoes
+e depois temos um ficheiro onde as invocamos, tipo uma main, nesse ficheiro no cima temos de por
+source $PWD/nomedoficheiroComAsFuncoes ou . (caminho)/nomedofichComAsFuncoes
+
+
+Para executar e guardar uma função na bash fazemos:
+$function dw() {
+> *código*
+> ...
+>...
+}
+
+para correr a função criada basta escrever no prompt dps o nome da mesma
+
+!!!TER ATENÇÃO!!!
+( pe. $1 pode ter diferentes significados dentro e fora das funções)
+$1 fora da função é o primeiro argumento passado ao script
+$1 dentro da função é o primeiro argumento passado á função
+
+2b) --> ao fim de correr a função fazer na linha $'echo return function $?' ou so '$?'
+
+ARRAYS
+-indices começam no zeros, :)
+- para aceser aos elementos individuais do array -- > ${lista[1]}
+-para ter acesso a todos os elementos do array (num ciclo for) é melhor usar o '@' e aspas like '${lista[@]}'
+- para saber o numero de elementos do array --> echo ${#lista[@]}
+- para saber os indices do array --> ${!lista[@]}
+- para apagar elementos do array --> $unset lista[1] apaga nesse indice e deixa lá um buraco, ou seja pe. o array tinha 5 indices, agr passa a ter os indices 0 2 3 4 
+- Array associativo --> 
+$declare -A arrass
+$arrass[um]=dia
+-para saber que tipo de array é:
+$declare -p lista
+$declare -f ou -p (nao percebi a letra, mas acho que é p, ns) 
+
+
+SelectionSort
+(Pequena explicação do algoritmo que o prof deu na aula, em selectionSort.sh tem os 
+comentários todos a explicar a execução do algoritmo)
+
+for i=0 to Nelements -1
+	for j = 1 to Nelements -1 
+		determinar menor
+		e respetivos indices
+	troca elemento um pelo elememto que tras em indice
