@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         }
         printf("\n");
         //* Maneira que 'não gosto' da implementação
-        //para fazer a alinea d) é usar o line[strlen(line) -1]
+        //para fazer a alinea d) é usar o line[strlen(line) -1] ou então menos geral mudar a macro LINEMAXSIZE para um número maior...
         /*
         int i = 1, fullline = 1;
         while (fgets(line, sizeof(line), fp) != NULL)

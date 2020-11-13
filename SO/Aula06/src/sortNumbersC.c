@@ -10,6 +10,8 @@ int compareInts(const void *px1, const void *px2)
     return (x1 < x2 ? -1 : x1 == x2 ? 0 : 1);
 }
 
+//! Não funciona 
+
 int main(int argc, char *argv[])
 {
     int NUMBERSFILE = 0, i = 0;
