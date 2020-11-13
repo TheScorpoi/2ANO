@@ -33,16 +33,6 @@ T sum(const T *a,int n)
   return s;
 }
 
-//codigo com template q a eva fez ... mt inteligente este menina
-template <typename T>
-double mean(const T *a, int n) {
-  double m = 0.0;
-  for(int i = 0 ; i < n; i++) {
-    m += a[i]
-  }
-  return m/n
-} 
-
 //media para arrays em int
 double average( int  *array, int sizeArray){
   double sum = 0.0;
@@ -93,7 +83,5 @@ int main(void)
        << std::setw(5)
        << average(da, size(da))
        << endl;
-  cout << "TEMPLATEEEEEEE"
-       << mean(da, size(da)) << endl << mean(ia, size(ia)) << endl; 
   return 0;
 }

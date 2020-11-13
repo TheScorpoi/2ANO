@@ -1,0 +1,44 @@
+nos if's em bash, oq se mete à frente do if são comandos e não condições propriamente ditas como nas outras linguagens de programação 
+
+para saber o return de um comando -> (pro convenção os programas que run well, retornam 0)
+$ ls filename
+$ echo return ls $? #se o file existir retorna 0, se não outra coisa depende do pc, no meu retorna 2
+return ls 2 #para quando o file nao existe
+
+'|' --pipe, liga o retorno do comando anterior ao próximo 
+
+
+
+$ df -h --> (df) - disk free (-h) human frendly (escreve em Gigas, Teras, etc...)
+
+df -h | awk '{print $5}' --> mostra o uso de casa disco
+
+df -h | awk '{print $5}' | grep % --> so deixa passar as linhas q tenham o carater '%'
+
+df -h | awk '{print $5}'| grep % | grep -v Use --> só deixa passar linhas sem Use
+
+df -h | awk '{print $5}'| grep % | grep -v Use | sort -n --> ordena 
+
+df -h | awk '{print $5}'| grep % | grep -v Use | sort -n | tail -1 --> só queremos ver a ultima linha
+
+df -h | awk '{print $5}'| grep % | grep -v Use | sort -n | tail -1 | cut -d "%" -f1 -   --> (-d) define o separador de colunas neste caso o "%"
+ 
+!!!! FORMA CORRETA PARA VALIDAR ARGUMENTOS
+
+#!/bin/bash
+
+if args não sao validos
+	msg de erro
+	e o programa termina
+
+script normal
+
+exemplo com o soma2.sh da aula passada
+
+#!/bin/bash
+
+if [[ $# ne (not equal) 2 ]]; then
+	echo Usage: FODA-SE A LETRA DO NUNO LAU PQP, ACHO QUE ELE É UM SISMOGRAFO CRLH
+	exit 1 #terminar o script
+fi
+script normal

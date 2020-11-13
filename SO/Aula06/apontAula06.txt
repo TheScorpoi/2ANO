@@ -1,0 +1,35 @@
+----------------------------------------------------------------------------------------------
+---------------------------------- Apontamentos Aula 06 --------------------------------------
+----------------------------------------------------------------------------------------------
+
+"r" --> read    "w" --> write   "a" --> append
+"rb" "wb" "ab" --> para binário
+"r+" "w+" "a+" --> permite leitura e escrita
+
+FILE *fp = open("xxx.txt", "r");
+if (fp = NULL) { ERRO }
+
+char *fgets(char *s, int size, FILE *stream)
+fgets é para ler uma linha do ficheiro
+*s = 
+size = tamanho do buffer de leitura, ou seja, o fgets lê no máximo size - 1 carateres 
+*stream = basicamente é o FILE *fp
+
+int scanf(char *format, ...)
+*fromat --> oq queremos ler, e como queremos ler
+p.e. --> "%d" ler int, "%f%" ler float, "%s" ler palavra, "%c" ler char ...
+p.e. --> int k; scanf("%d", &k); temos de passar o endereço do k, para este lá escrever
+p.e. --> scanf mais elaborado:
+int k, char s1[10], float x;
+scanf("%d %s %f", &k, s1, &x); 
+
+int fscanf(FILE *fp, char *format, ...);
+
+int strlen --> dá um número de carateres da string
+
+void *malloc(size_t size) --> guarda memoria em runtime
+o size é o tamanho em bytes do tamanho a alocar,
+esta função retorna um ponteiro para a memoria q reservou/guardou
+
+void qsort(void *base, size_t numbers, size_t size, int (*comparator)(void *, void *));
+

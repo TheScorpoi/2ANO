@@ -1,0 +1,8 @@
+#!/bin/bash
+#Select structure to creat menus
+
+echo "Welcome to this wonderfull script, if you want to quit write 'banana'! "
+
+if [[ $@ -ne "banana" ]]; then
+	select arg in $@; do
+	echo "You picked $arg ($REPLY).	done

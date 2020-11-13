@@ -1,0 +1,5 @@
+PERMISSÕES
+chmod u+x file.sh  (u+x --> user ative execution, se fosse um "-" desativavamos a permissão, o "=" permissões iguais áquilo q indicámos) , se fizer mos chmod +x file.sh, damos permissões para todos não só para o user		
+
+
+tinha feito apotamentos durante a aula toda, mas sou burro e apaguei :( um like, um amen
