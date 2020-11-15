@@ -13,14 +13,14 @@
 int main(int argc, char *argv[])
 {
     char text[128];
-    FILE *fp = fopen("command.log", "w");
+    FILE *fp = fopen("command.log", "a");
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
     do
     {
         printf("Command: ");
-        scanf("%[^\n]%*c", text);
+        scanf("%1023[^\n]%*c", text);
 
         /* system(const char *command) executes a command specified in command
             by calling /bin/sh -c command, and returns after the command has been
