@@ -42,7 +42,7 @@ void writeTerminal1(char *file)
     }
 
     //enq a linha for diferente de NULL, está a ler linhas
-    printf("Imprimir a linha mas com valor max de char por linha pre-definido");
+    printf("Imprimir a linha mas com valor max de char por linha pre-definido\n");
     while (fgets(line, sizeof(line), fp) != NULL)
     {
         printf("%d -> %s", i, line);
@@ -64,7 +64,7 @@ void writeTerminal2(char *file)
         //eturn EXIT_FAILURE; COMO ÉUMA FUNÇÃO VOID NAO POSSO RETURNAR NADA
     }
 
-    printf("Maneira para só mudar de linha qd encontrar a mudança de linha");
+    printf("Maneira para só mudar de linha qd encontrar a mudança de linha\n");
     int fullLine = 1, j = 1;
     while (fgets(line2, sizeof(line2), fp2) != NULL)
     {

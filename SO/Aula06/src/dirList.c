@@ -1,6 +1,7 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /* SUGESTÂO: utilize as páginas do manual para conhecer mais sobre as funções usadas:
   man opendir
@@ -27,11 +28,12 @@ void listDir(char dirname[])
             if (dent->d_type == DT_DIR)
             {
                 printf("d %s/%s\n", dirname, dent->d_name);
-                //listDir(dent->d_name);
+                
+                //? Não sei como por isto a dar com a recursividade
+                //listDir();
             }
-            //? Não sei como por isto a dar com a recursividade
             //! se for so um else e depois o print, dá na mesma
-            else if(dent->d_type == DT_REG)
+            else if (dent->d_type == DT_REG)
             {
                 printf("  %s/%s\n", dirname, dent->d_name);
             }

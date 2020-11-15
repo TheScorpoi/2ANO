@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
-#define size(x) sizeof(x) / sizeof(x[0])
+//? Pq q se usar a macro isto da erro, e so me ordena e print 2 numeros
+//#define size(x) sizeof(x)/sizeof(x[0])
 
 int compareInts(const void *px1, const void *px2)
 {
@@ -10,13 +12,12 @@ int compareInts(const void *px1, const void *px2)
     return (x1 < x2 ? -1 : x1 == x2 ? 0 : 1);
 }
 
-//! Não funciona 
-
 int main(int argc, char *argv[])
 {
     int NUMBERSFILE = 0, i = 0;
     int *numbers;
-    int *val;
+    int val;
+
     FILE *fp = NULL;
     fp = fopen(argv[1], "r");
 
@@ -29,22 +30,23 @@ int main(int argc, char *argv[])
     while (fscanf(fp, "%d", &val) == 1)
     {
         NUMBERSFILE++;
-        printf("%d", NUMBERSFILE);
+        //printf("%d", NUMBERSFILE);
     }
     fclose(fp);
 
-    numbers[NUMBERSFILE];
+    numbers = (int *)malloc(sizeof(int) * NUMBERSFILE);
 
     //*onde esta '&numbers[i]' também dá com 'numbers + i'
     fp = fopen(argv[1], "r");
-    while (fscanf(fp, "%d", &numbers[i]) == 1)
+    while (fscanf(fp, "%d", &val) == 1)
     {
+        numbers[i] = val;
         i++;
     }
 
-    qsort(numbers, size(numbers), sizeof(numbers[0]), compareInts);
+    qsort(numbers, NUMBERSFILE, sizeof(numbers[0]), compareInts);
 
-    for (int i = 0; i < size(numbers); i++)
+    for (int i = 0; i <  size(numbers); i++)
     {
         printf("%d\n", numbers[i]);
     }
