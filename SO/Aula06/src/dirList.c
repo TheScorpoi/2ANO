@@ -28,16 +28,37 @@ void listDir(char dirname[])
             if (dent->d_type == DT_DIR)
             {
                 printf("d %s/%s\n", dirname, dent->d_name);
-                
-                //? Não sei como por isto a dar com a recursividade
-                //listDir();
+
+                //? Funciona mas não funciona... alguns dá outros dá 'Error opening directory'
+                char str1[150];
+                char str2[150];
+                char sentence[150];
+                int countMarinhs = 0;
+                strcpy(str1, dirname);
+                //printf("FRASE: %s\n", str1);
+                strcpy(str2, dent->d_name);
+
+                int i;
+                for (i = 0; i < strlen(str1); i++)
+                {
+                    sentence[countMarinhs] = str1[i];
+                    countMarinhs++;
+                }
+
+                sentence[countMarinhs++] = '/';
+                for (i = 0; i < strlen(str2); i++)
+                {
+                    sentence[countMarinhs] = str2[i];
+                    countMarinhs++;
+                }
+                listDir(sentence);
             }
             //! se for so um else e depois o print, dá na mesma
             else if (dent->d_type == DT_REG)
             {
                 printf("  %s/%s\n", dirname, dent->d_name);
             }
-        }
+                }
         dent = readdir(dp);
     }
 }
