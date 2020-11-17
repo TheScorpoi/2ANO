@@ -10,6 +10,8 @@
 
 void listDir(char dirname[])
 {
+    char sentence[150];
+
     DIR *dp;
     struct dirent *dent;
 
@@ -29,10 +31,11 @@ void listDir(char dirname[])
             {
                 printf("d %s/%s\n", dirname, dent->d_name);
 
-                //? Funciona mas não funciona... alguns dá outros dá 'Error opening directory'
+                //Funciona mas não funciona... alguns dá outros dá 'Error opening directory'
+                //basicamente é um codigo estupido de concatenação de chars
+                /*
                 char str1[150];
                 char str2[150];
-                char sentence[150];
                 int counter = 0;
                 strcpy(str1, dirname);
                 //printf("FRASE: %s\n", str1);
@@ -51,6 +54,13 @@ void listDir(char dirname[])
                     sentence[counter] = str2[i];
                     counter++;
                 }
+                sentence[counter] = '\0';
+                */
+
+                strcpy(sentence, dirname);
+                strcat(sentence, "/");
+                strcat(sentence, dent->d_name);
+
                 listDir(sentence);
             }
             //! se for so um else e depois o print, dá na mesma
