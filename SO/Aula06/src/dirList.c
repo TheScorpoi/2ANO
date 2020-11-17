@@ -33,7 +33,7 @@ void listDir(char dirname[])
                 char str1[150];
                 char str2[150];
                 char sentence[150];
-                int countMarinhs = 0;
+                int counter = 0;
                 strcpy(str1, dirname);
                 //printf("FRASE: %s\n", str1);
                 strcpy(str2, dent->d_name);
@@ -41,15 +41,15 @@ void listDir(char dirname[])
                 int i;
                 for (i = 0; i < strlen(str1); i++)
                 {
-                    sentence[countMarinhs] = str1[i];
-                    countMarinhs++;
+                    sentence[counter] = str1[i];
+                    counter++;
                 }
 
-                sentence[countMarinhs++] = '/';
+                sentence[counter++] = '/';
                 for (i = 0; i < strlen(str2); i++)
                 {
-                    sentence[countMarinhs] = str2[i];
-                    countMarinhs++;
+                    sentence[counter] = str2[i];
+                    counter++;
                 }
                 listDir(sentence);
             }
