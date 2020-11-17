@@ -1,0 +1,95 @@
+----------------------------------------------------------------------------------------------
+---------------------------------- Apontamentos Aula 07 --------------------------------------
+----------------------------------------------------------------------------------------------
+
+
+-Um editor de texto o que faz é ler/converter o código ASCII
+Precisa de um terminador/separador: um enter, um espaço, virgula,......
+
+Ficheiro binário: int ocupa 4 bytes p.e. 12345 --> 0x00003039
+N é necessário usar separadores, pois como tem tamanho fixo, 4 bytes, a cada 4 ele sabe q muda 
+
+Em C quando se usa '1', com plicas, o que ali está é o codigo ASCII do 1 que é 49
+
+
+size_t fread(void * ptr, size_t size, size_t n, FILE * stream)
+
+- stream --> é o retorno do fopen;
+- ptr --> para onde vai ler (endereço(&) para onde ler)
+- size --> tamanho em bytes de cada elemento
+- n --> número maximo de elementos a ler nº bytes que vai ler = n * size)
+- size_t --> numero de elementos lidos
+
+
+size_t fwrite(void * ptr, size_t size, size_t n, FILE * stream)
+
+- stream --> é o retorno do fopen
+- ptr --> onde estão os dados a escrever
+- size --> tamanho em bytes de cada elemento
+- n --> número de elementos a escrever (nº bytes que vai escrever = n * size)
+- size_t --> numero de elementos escritos
+
+
+typedef struct {
+    float x;
+    int j;
+    char st[10];
+} st1;
+
+
+st1 a, b, *ps;  um apontador ocupa sempre 8 bytes, nao interessa de que tipo é
+
+a.j = 21; (tipo a.j --> flaot)
+a.x = 2.1; (tipo a.x --> int)
+strcpy(a.st, "ola"); (tipo a.st --> char *)
+ps = &b (ps --> st1*, b --> st1, e tudo é st1*) o ps aqui está a usar o b, pq tem o endereço dele (b)
+ps->x = a.x + 1.1;
+strcpy(ps->st, a.st);
+
+usa-se a seta '->' quando o tipo antes é um ponteiro (p->f <=> *p.f)
+usa-se um ponto '.' quando o tipo é um não ponteiro (s.f <=> (&s)->f)
+
+
+---------------------------------------------BASH------------------------------------------------- 
+---------------------------------------------- C -------------------------------------------------
+
+Em bash, 'getopts', funciona basicamente como esta explicado no pseudo-codigo a seguir...
+
+$ls /
+$ls -l /
+$ls -l -a/
+$ls -la /
+$ls -w80 -a /
+
+o que tem '-' antes são opçoes 
+o que está dps do / sao opçoes mais fortes 
+
+
+extern char *optarg, int optind (indica o numero de vezes q o getopt funcionou?? nao entendi mt bem)
+char ch;
+while((ch = getopt(argv, argv, "ac:t")) != -1)
+                                optarg é o "ac:t" quando tem ':' é pq o c tem um argumento
+
+getopt --> em chamadas sucessivas retorna 
+
+optstring --> defini as opçoes validas
+"ac: t" --> opçao -a
+            opçao -c arg (o c tem de ter um arg á frente)
+            opçao -t
+
+$./prog -a -t
+'a' <-- getopt ()
+'c' <-- getopt ()
+'t' <-- getopt ()
+
+$./prog -c 80 -t ola.txt
+'c' <-- getopt(...) optarg aponta para "80"
+'t' <-- getopt(...) 
+-1 <-- getopt(...) 
+
+
+
+
+
+
+

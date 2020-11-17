@@ -37,16 +37,17 @@ int main (int argc, char *argv[])
 
     int nPessoas = 0;
     printf("Quantas pessoas são para guardar? \n");
-    scanf("%d\n", &nPessoas);
+    scanf("%d", &nPessoas);
+    //scanf("%*c"); //lê e descarta um carater ou ent por um espaço antes do '%' descarta um white space
 
     for (int i = 0; i < nPessoas; i++)
     {
         printf("Nome?\n");
-        scanf("%s", p.name);
+        scanf(" %63[^\n]", p.name); //scanf(" %63[^\n]"); o 63 pq no maximo pode ler 63 carateres pois name[64]
         printf("Idade?\n");
-        scanf("%d", &p.age);
+        scanf(" %d", &p.age);
         printf("Altura?\n");
-        scanf("%lf", &p.height);
+        scanf(" %lf", &p.height);
         fwrite(&p, sizeof(Person), 1, fp);
     }
 

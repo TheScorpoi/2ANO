@@ -38,7 +38,6 @@ void listDir(char dirname[])
                 char str2[150];
                 int counter = 0;
                 strcpy(str1, dirname);
-                //printf("FRASE: %s\n", str1);
                 strcpy(str2, dent->d_name);
 
                 int i;
