@@ -19,7 +19,7 @@ void listDir(char dirname[])
     if (dp == NULL)
     {
         perror("Error opening directory");
-        return;
+        return EXIT_FAILURE;
     }
 
     dent = readdir(dp);
@@ -31,31 +31,7 @@ void listDir(char dirname[])
             {
                 printf("d %s/%s\n", dirname, dent->d_name);
 
-                //Funciona mas não funciona... alguns dá outros dá 'Error opening directory'
-                //basicamente é um codigo estupido de concatenação de chars
-                /*
-                char str1[150];
-                char str2[150];
-                int counter = 0;
-                strcpy(str1, dirname);
-                strcpy(str2, dent->d_name);
-
-                int i;
-                for (i = 0; i < strlen(str1); i++)
-                {
-                    sentence[counter] = str1[i];
-                    counter++;
-                }
-
-                sentence[counter++] = '/';
-                for (i = 0; i < strlen(str2); i++)
-                {
-                    sentence[counter] = str2[i];
-                    counter++;
-                }
-                sentence[counter] = '\0';
-                */
-
+                //concatenação das strings
                 strcpy(sentence, dirname);
                 strcat(sentence, "/");
                 strcat(sentence, dent->d_name);

@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
       argc and argv are the argument count and array as passed to the main()
       function on program invocation. An element of argv that starts with
       '-' (and is not exactly "-" or "--") is an option element. The charac‐
-      ters of this element (aside from the initial '-') are option charac‐
+      ters of this elementn (aside from the initial '-') are option charac‐
       ters.  If getopt() is called repeatedly, it returns successively each
       of the option characters from each of the option elements.
 
