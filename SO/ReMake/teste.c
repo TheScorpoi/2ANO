@@ -7,23 +7,22 @@
 int main(int argc, char const *argv[])
 {
     int opt;
+    //char *extension;
 
     DIR *dp;
     struct dirent *dent;
 
-
-    dp = opendir(argv[1]);
-    //validacao
-    if (dp == NULL)
-    {
-        perror("Error opening directory");
-        return EXIT_FAILURE;
-    }
-
     while ((opt = getopt(argc, argv, "dfe:")) != -1)
     {
+        dp = opendir(argv[1]);
+        if (dp == NULL)
+        {
+            perror("Error opening directory");
+            return EXIT_FAILURE;
+        }
 
         dent = readdir(dp);
+
         while (dent != NULL)
         {
             if (dent->d_name[0] != '.') /* do not list hidden dirs/files */
@@ -44,9 +43,8 @@ int main(int argc, char const *argv[])
                     }
                     break;
                 /*case 'e':
-                    
-                    break;
-                    */
+                    extension = optarg;
+                    break;*/
                 default: /* '?' */
                     fprintf(stderr, "Usage: %s \n",
                             argv[0]);
