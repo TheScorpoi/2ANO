@@ -21,13 +21,13 @@ int main(int argc, char *argv[])
                break;
       default: /* processo pai */
                printf("Pai (depois do fork): PID = %u, PPID = %u\n", getpid(), getppid());
-               if (wait(&stat) < 0) { 
+               if (wait(&stat) < 0) { //fica à espera que o filho termine ou pare, e o wait retorna o PID do filho que parou
                    perror("erro na espera da terminação do processo-filho");
                    return EXIT_FAILURE;
                }
                printf("Pai: o processo-filho terminou. ");
-               if (WIFEXITED(stat) != 0) {
-                   printf("O seu status de saída foi %d.\n", WEXITSTATUS(stat));
+               if (WIFEXITED(stat) != 0) { // MACRO 'WIFEXITED' para saber se terminou
+                   printf("O seu status de saída foi %d.\n", WEXITSTATUS(stat)); //MACRO 'WEXITSTATUS'
                }
                else {
                    printf("O processo filho terminou de forma anormal.\n");
@@ -36,3 +36,10 @@ int main(int argc, char *argv[])
 
     return EXIT_SUCCESS;
 }
+
+// Pergunta 3 - Respostas
+/*
+
+
+
+*/

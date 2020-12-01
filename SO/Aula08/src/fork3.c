@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
                perror("Erro no fork\n");
                return EXIT_FAILURE;
       case 0:  /* processo filho */
-               if (execl("./child", "./child", NULL) < 0) { 
+               if (execl("./child", "./child", NULL) < 0) { //exec é chamado uma vez e nunca retorna
                    perror("erro no lancamento da aplicacao");
                    return EXIT_FAILURE;
                }
@@ -24,3 +24,23 @@ int main(int argc, char *argv[])
 
     return EXIT_SUCCESS;
 }
+
+// Pergunta 3 - Respostas
+/*
+
+O pai escreve, o filho escreve, o pai espera +/- 1s e dps volta a escrever, enq o filho espera +/- 3s, sendo que
+quando o filho vai printar, o processo pai já parou, ent o seu PPID já nao vai ser o do PAI, o upstart irá herdar
+o processo filho
+
+a bash so espera pelos filhos, nao espera pelos netos, sendo assim aparece o prompt ainda antes
+do processo neto terminar
+
+se quisermos que a bash nao espere pelo filho, usamos o '&' para correr em background, like ./fork3 &
+
+execl(Path do que executar, argv[0], argv[1], ..., NULL);
+execl("./child", "./child", "ola", "123",  NULL);
+        PATH     argv[0] argv[1]  argv[2]
+
+
+
+*/

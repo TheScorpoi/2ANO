@@ -1,0 +1,26 @@
+----------------------------------------------------------------------------------------------
+---------------------------------- Apontamentos Aula 08 --------------------------------------
+----------------------------------------------------------------------------------------------
+
+
+NOTA: As respotas às peguntas so guião sobre os .c files, estão dentro dos .c files 
+Portanto é ir ver os ficheiros, meus putos!
+
+pid_t fork(void)
+
+    |PID 100
+    |           -----------------------------------------------------------------------------------
+    .fork       | E chamado pelo pai, e retorna no pai e no filho (chamado uma vez, e retorna 2)) |
+    |\          | O valor de retorno no filho é 0.                                                |
+    | \         |                                                                                 |
+    |  \        -----------------------------------------------------------------------------------
+    |   \
+    |    \
+ PID 100  PID 100 (os 2 processos são iguais, correm o memso código)
+    |      . exec("ls")
+    |      |
+    |      | PID 100
+    
+
+
+          

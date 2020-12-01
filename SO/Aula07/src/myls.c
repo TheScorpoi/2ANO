@@ -11,7 +11,6 @@ int main(int argc, char const *argv[])
     DIR *dp;
     struct dirent *dent;
 
-
     dp = opendir(argv[1]);
     //validacao
     if (dp == NULL)
@@ -44,7 +43,7 @@ int main(int argc, char const *argv[])
                     }
                     break;
                 /*case 'e':
-                    
+                    //! basicamente é so para mostrar os ficheiros que acabam em .ext
                     break;
                     */
                 default: /* '?' */
