@@ -51,10 +51,12 @@ int main(int argc, char *argv[])
         nPessoas++;
     }
     */
+    fclose(fp);
 
-    // outra maneira mais simples para ler e guardar no array, está 0 a nPessoas pois o fread retorna o numero de fezes
+    // outra maneira mais simples para ler e guardar no array, está 0 a nPessoas pois o fread retorna o numero de vezes
     //nPessoas = fread(people, sizeof(Person), 100, fp);
 
+    FILE *fp = NULL;
     fp = fopen(argv[1], "w");
 
     // Write 10 itens fixos, pq é estupido cada vez q dou run nisto pedir as cenas

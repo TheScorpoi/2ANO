@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     for (int i = 1; i < argc; i++)
     {
         errno = 0;
-        fp = fopen(argv[1], "r");
+        fp = fopen(argv[i], "r");
         //validação do ficheiro
         if (fp == NULL)
         {
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
         {
             if (line[strlen(line) - 1] == '\n')
             {
-                printf("%d-> %s", j, line); //not needed to add '\n' to printf because fgets will read the '\n' that ends each line in the file
+                printf("%d-> %s", j, line); //not needed to add '\n' to printf because fgets will read the '\n' that ends each line
                 j++;
             }
         }

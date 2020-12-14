@@ -11,7 +11,10 @@ int main(int argc, char *argv[])
         perror ("erro na duplicação do processo");
         return EXIT_FAILURE;
     }
-    if (ret > 0) sleep (1); // o if executado pelo pai e pelo filho, o sleep é so executado pelo pai
+    if (ret > 0) {
+    sleep (1); // o if executado pelo pai e pelo filho, o sleep é so executado pelo pai
+    }
+    
     printf("Quem sou eu?\nApós o fork: PID = %d, PPID = %d\n", getpid(), getppid()); //2x(2 linhas) (uma pelo pai outro pelo filho)
 
     return EXIT_SUCCESS; //executado pelo pai e pelo filho

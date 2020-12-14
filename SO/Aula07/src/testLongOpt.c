@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 
-//alinea (b) deita no programa mylsLong.c
+//alinea (b) feita no programa mylsLong.c
 
 int main(int argc, char *argv[])
 {

@@ -12,6 +12,12 @@ int main(int argc, char const *argv[])
     printf("%s\n", frase);
     */
 
+   /*
+    no array arg[], vamos guardar os argumentos introduzidos, atraves de um for
+    num outro for, vamos meter cada letra dentro do array sentence[]
+
+   */
+
     //Alternativa pelo terminal
     char arg[100], sentence[100];
     int numchars = 0;

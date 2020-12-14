@@ -8,8 +8,6 @@
  man date
 */
 
-//! NO command.log, os segundos sao sempre os mesmo...
-
 int main(int argc, char *argv[])
 {
     char text[128];
@@ -26,7 +24,7 @@ int main(int argc, char *argv[])
             by calling /bin/sh -c command, and returns after the command has been
             completed.
         */
-        if (strcmp(text, "end"))
+        if (strcmp(text, "end") != 0) 
         {
             printf("\n * Command to be executed: %s\n", text);
             printf("---------------------------------\n");
@@ -34,7 +32,7 @@ int main(int argc, char *argv[])
             printf("---------------------------------\n");
             fprintf(fp, "Data: %d-%02d-%02d %02d:%02d:%02d || Comando: %s\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, text);
         }
-    } while (strcmp(text, "end"));
+    } while (strcmp(text, "end") != 0);
 
     printf("---------------The End---------------\n");
     fclose(fp);

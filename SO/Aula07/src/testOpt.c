@@ -7,9 +7,7 @@ int main(int argc, char *argv[])
     int flags, opt;
     int nsecs, tfnd;
 
-    nsecs = 0;
-    tfnd = 0;
-    flags = 0;
+    nsecs = 0, tfnd = 0, flags = 0;
 
     /* The getopt() function parses the command-line arguments. Its arguments
       argc and argv are the argument count and array as passed to the main()

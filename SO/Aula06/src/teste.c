@@ -70,6 +70,7 @@ void writeTerminal2(char *file)
     {
         if (fullLine)
         {
+//! NO command.log, os segundos sao sempre os mesmo...
             printf("2%d -> ", j);
             fullLine = 0;
         }

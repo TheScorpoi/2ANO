@@ -15,8 +15,20 @@ int compareInts(const void *px1, const void *px2)
 
 int main(int argc, char *argv[])
 {
-    int *numbers[10];
-    
+    int tmp[100];
+
+    FILE *ftmp = NULL;
+    ftmp = fopen(argv[1], "r");
+
+    int NUM = 0;
+    while (fscanf(ftmp, "%d", tmp + 1) == 1)
+    {
+    NUM++;
+    }
+    fclose(ftmp);
+
+    int numbers[NUM];
+
     FILE *fp = NULL;
     fp = fopen(argv[1], "r");
 

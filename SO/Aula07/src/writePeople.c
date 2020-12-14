@@ -49,6 +49,7 @@ int main (int argc, char *argv[])
         printf("Altura?\n");
         scanf(" %lf", &p.height);
         fwrite(&p, sizeof(Person), 1, fp);
+        //fprintf(fp, "Person --> Name: %s Idade: %d Altura: %f\n", p.name, p.age, p.height);
     }
 
     // Write 10 itens on a file
