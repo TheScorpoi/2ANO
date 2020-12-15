@@ -1,0 +1,118 @@
+----------------------------------------------------------------------------------------------
+---------------------------------- Apontamentos Aula 09 --------------------------------------
+----------------------------------------------------------------------------------------------
+
+
+Quando temos uma variavel com 'static', significa que a variável só "existe", naquele ficheiro
+pelo que entendi, é tipo o 'private' em JAVA
+
+Extra: Quando queremos ir buscar uma variável de outro ficheiro, é fazer 'extern type nomeVariável'
+(Isto só é possivel se a função no ficheiro onde se vai buscar, nao for static)
+
+Valores partilhados por várias threads nao podem estar num só registo, pois cada thread tem a sua
+stack, os seus registos, etc...
+
+ex: value++ : sao 3 instruções diferentes
+1- ler o valor da memoria
+2- somar 1
+3- escrever o novo valor na memoria
+
+Todas as threads partilham o segmento de dados.
+
+*****
+int pthread_create (pthread_t *thread, pthread_attr_t *attr, void *(*start_routine)(void*), void *arg);
+(retorna um -1 se der merda)
+
+*thread = recebermos o thread ID.
+*attr = atributos da thread (NULL, pois assim sao atribuidos os atributos normais).
+*start_routine = ponteiro para funcao q tem argumento (void *), e retorna (void *) --> ou seja, vai ser 
+um ponteiro para a funcao que tem o código da thread.
+*arg = define o valor do argumento de start_routine
+
+
+*****
+pthread_join --> espera que uma determinada thread termine (espera pela 1º thread a ser criada, nao interessa qual acaba primeiro)
+
+int pthread_join (pthread_t thread, void **retval);
+
+thread = ID da thread a esperar 
+retval = recolhermos o valor de retorno da thread
+
+##########################
+        Guião 09
+##########################
+d)
+  i) --> Só existe um 'value' partilhado por tofas as thread
+  ii) --> dentro da função vInc(), tudo menos o ultimo delay 
+  iii) -> Diagrama do ciclo de vida das threads
+
+            thread principal
+                    |
+         vSet(0)    |
+                    |                thr1                 thr3
+for(pthread_create) |-----------------.---------------------.
+                    |                 | for()               |  for()
+                    |                 |   vInc()            |   vInc()
+for(pthread_join)   |                 |                     |
+                    |                 |                     |
+                    .-----------------.---------------------.
+                    |
+                    | print(nGet())
+    
+  v) --> valor máximo: 2000
+         valor minimo: 2 
+  
+  vi) --> BIG/BIG -> CONDIÇÃO DE CORRIDA ALTA, VALORES POUCO ACIMA DE 100
+          BIG/SMALL -> CONDIÇÃO DE CORRIDA AUMENTA MUIO, PIOR CASO
+          SMALL/SMALL -> (MELHOR?) CONDIÇÃO DE CORRIDA, MT PERTO DE 4000, MAS HÁ ALGUNS Q FICAM MUITO BAIXOS (1000 OU 2000)
+          SMALL/BIG -> PIOR UM POUCO QUE A DE CIMA (SMALL/SMALL)
+
+PROBLEMA PRINCIPAL: 
+Uma thread le um valor e antes de o guardar ja outra thread esta a fazer o mesmo, ou seja, colisão de informaçãoID.
+FORMA DE RESOLVER:
+Exclusão mutua. Criar uma região critica, q diga quem entrar, entra sozinho, faz aquilo tudo, e quem quiser entrar fica à espera
+
+***********
+** MUTEX **
+*********** 
+- Usado para que só uma thread faça uma coisa de cada vez (basicamente resolver o nosso problema)
+lock() , tb chamado como acquire() --> Apanha o 'testemunho'
+unlock() , tb chamado como release() --> Liberta o 'testemunho'
+Estes métodos nao tem CONDIÇÕES DE CORRIDA
+Nunca é possivel que 2 ou mais threads apanhem o testemunho
+Se o testemunho estiver disponivel, nunca fica nenhuma à espera que outra o apanhe (like hunger games...)
+
+//ALTERAÇÕES: funçoes em pseudo codigo
+// passar o mutex como variável global:
+static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
+//alterações na função vSet(), ir ver no file incModSafe.c line 46
+void vSet(int new_value){
+    mutex.lock();
+    value = new_value;
+    mutex.unlock();
+}
+
+int vGet(void){
+
+    mutex.lock();
+    //guardamos a variável numa variável local
+    int val = value;
+    mutex.unlock();
+
+    return val;
+}
+
+void vInc(void) {
+
+    mutex.lock();
+    val = value;
+    delay(BIG);
+    value = val + 1;
+    mutex.unlock();
+    delay(BIG);
+}
+
+Desta forma, o programa já funciona corretamente, independetemente dos delays e do escalonamento, etc ...
+
+
