@@ -1,0 +1,140 @@
+----------------------------------------------------------------------------------------------
+---------------------------------- Apontamentos Aula 10 --------------------------------------
+----------------------------------------------------------------------------------------------
+
+Segmento de memoria
+partilhada
+  P1              P2
+ ____            ____
+|    |          |    |
+|    |          |    |
+|----|--|----|--|----|
+|    |          |    |
+|____|          |____| 
+
+SYSTEM V IPC, mecanismos:
+1-> segmento de memroria partilhada (shm) 
+2-> arrays de semáforos (sem)
+3-> filas de mensagens (msg)
+
+Os mecanismos 1, e 2, são usados em simbioso frequentemente
+A memoria partilhada resolve o problema da comunicação, porém a parte da sincronização isso nao resolve.
+O array de semaforos serve para resolver o problema da sincronização (sendo que com semaforos nao temos busy nem waiting)
+
+O mecanismo 3, fila de mensagens, não é necessário semaforos para sincronizar
+ele diz que quer receber uma mensagem x, e enq nao houver essa mensagem
+ele bloqueia, qd receber desbloquei-a... (qql merda assim, falou rapido, ns)
+
+A partir do momento que é criada a memoria partilhada, por qualquer 1 dos 3 mecanismos, mesmo
+que os processos que a criaram desapareçam, ela mantem se "viva"
+
+******
+shmget
+******
+int shmget (key_t key, size_t size, int shmgflg)
+
+O QUE A FUNÇÃO FAZ: aceder segmentos de memoria partilhada, ou criar segmentos de dados
+RETORNO: identificador interno da share memorie, ou -1 se der merda
+
+key: identificador externo da memoria partilhada (PARA GERAR CHAVES: key_t ftok(char *path, int proj_id))
+size: tamanho em bytes da memória partilhada 
+shmflg: definir as permissões (rwz-rwx-rwx --> utilizador|grupo|outros, respetivamento ) 
+shmflg: IPC_CREAT: para quando se quer criar o segmento de memoria 
+shmflg: IPC_EXCL: garantir a criação
+
+se já exister e se usar-mos o IPC_CREAT e o IPC_EXCL retorna -1
+se usarmos essas 2 flags, e nao retornar -1, ent significa que fomos nos a criar 
+
+******
+shmctl
+******
+int shmctl(int shmid, int cmd, struct shmid_ds * buf)
+
+PARA QUE SERVE: executar comandos sobre a memóra partilhada, vamos usar principalmente para apagar a memoria partilhada (IPC_RMID)
+RETORNO: -1 se algo der mal, um inteiro caso tudo corra bem
+
+shmid: valor de retorno do shmget
+cmd: comando, por ex: IPC_RMID (este serve para apagar a memoria em questão)
+*buf: depende do comando 
+
+*****
+shmat
+*****
+void *shmat(int shmid, void *shmaddr, int shmflg)
+
+PARA QUE SERVE:
+RETORNO: ponteiro para a memória partilhada
+
+shmid: retorno do shmget
+*shmaddr: pedido de endereço para a memoria partilhada
+shmflg: conjunto de flags...
+
+*****
+shmdt
+*****
+int shmdt(void *shmaddr) --> argumento desta função é o que é retornado pela funcao shmat()
+
+**********
+PERMISSOES
+**********
+0600
+
+começa por zero, logo é um valor octal
+para binário fica:
+
+110 000 000
+rwx rwx rwx
+ u   g   o
+
+ou seja, neste caso, so tem permissoes, o utilizador, permissoes de r-w
+
+escrever no terminal:
+ipcs -> mostra as memorias, as filas e os semaforos ativos
+ipcrm -S(para array de semaforos) -M(acho eu para apagar do semento de dados) e dps 0x000 (VALOR QUE APARECE)
+
+
+***********
+EXERCICIO 2
+***********
+
+Essencialmente o que os clientes fazes é:
+CliOpen
+CliSend
+
+Down(R)
+escrita msg, e mete no segmento de dados
+Up(S)
+
+CliRecv
+
+Down(A)
+le da shm(o reply)
+Up(R)
+
+CLiClose
+
+Essencialmente o que o servidor faz é:
+ServOpen
+
+ServRecv
+
+Down(S)
+le shm
+reply = process(qql merda q n entendi)
+
+ServSend
+
+escreve reply na shm
+UP(A)
+
+ServClose
+
+Entre o servidor e o cliente vamos criar um segmento de memoria partilhada, mas só irá caber uma mensagem, ou uma
+do servidor para o cliente ou ao contrário
+
+Vamos ter também um array de 3 semaforos
+ R  S   A
+ _________
+|1 |0 |0 |
+
+FOTO DO DESENHO QUE O STOR TIROU NO TLM

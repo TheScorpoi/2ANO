@@ -256,8 +256,34 @@ void selection_sort(T *data,int first,int one_after_last)
   }
 }
 
+void merge_sort2(T *data,int first,int one_after_last)
+{
+  int i,j,k,middle;
+  T *buffer;
+
+  if(one_after_last - first < 30) // do not allocate less than 40 bytes
+    insertion_sort(data,first,one_after_last);
+  else
+  {
+    middle = (first + one_after_last) / 2;
+    merge_sort2(data,first,middle);
+    merge_sort2(data,middle,one_after_last);
+    buffer = (T *)malloc((size_t)(one_after_last - first) * sizeof(T)) - first; // no error check!
+    i = first;  // first input (first half)
+    j = middle; // second input (second half)
+    k = first;  // merged output
+    while(k < one_after_last)
+      if(j == one_after_last || (i < middle && data[i] <= data[j]))
+        buffer[k++] = data[i++];
+      else
+        buffer[k++] = data[j++];
+    for(i = first;i < one_after_last;i++)
+      data[i] = buffer[i];
+    free(buffer + first);
+  }
+}
 int main(int argc, char const* argv[]) {
-    int array[10] = {7, 6, 3, 4, 8, 9, 2, 3, 4, 5};
+    int array[35] = {7, 6, 3, 4, 8, 9, 2, 3, 4, 5,5,4,6,7,8,33,44,55,66,77,3,2,1,2,3,4,5,6,5,4,3,2,1,2,3};
 
     //bubble_sort(array, 0, 10);
     //shaker_sort(array, 0, 10);
@@ -266,6 +292,7 @@ int main(int argc, char const* argv[]) {
     //quick_sort(array, 0, 10);
     //!merge_sort(array, 0, 10);  DIDNT WORK!
     //heap_sort(array, 0, 10);
+    merge_sort2(array, 0, 35);
 
     //* The following algorithms won't be evaluated
     //rank_sort(array, 0, 10);
