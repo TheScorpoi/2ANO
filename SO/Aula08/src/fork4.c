@@ -37,9 +37,19 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
-// Pergunta 3 - Respostas
+// Pergunta 4 - Respostas
 /*
+i) No fork4.c a grande diferença relativamente ao fork3.c é o acrescimento do
+metodo wait(), que faz com que o pai fique à espera que o filho acabe,
+deste modo 
 
+ii) Ordem de impressão:
+Pai (antes do fork) 
+Pai(depois do fork)
+Filho
+Filho
+Pai: o processo filho terminou O seu status de said foi
 
+iii) Como agora o processo pai so continua qd o filho acaba o prompt já esta "no sitio certo"
 
 */

@@ -11,11 +11,11 @@ int main(int argc, char *argv[])
                perror("Erro no fork\n");
                return EXIT_FAILURE;
       case 0:  /* processo filho */
-               if (execl("./child", "./child", NULL) < 0) { //exec é chamado uma vez e nunca retorna
+               if (execlp("ls", "ls","-l", NULL) < 0) { //exec é chamado uma vez e nunca retorna
                    perror("erro no lancamento da aplicacao");
                    return EXIT_FAILURE;
                }
-               printf("Porque é que eu não apareço?\n");
+               printf("Porque é que eu não apareço?\n");// pq qd se faz um exec nada daí pra frente é executado
                break;
       default: /* processo pai */
                sleep(1);
