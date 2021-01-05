@@ -4,7 +4,7 @@
 
 
 Quando temos uma variavel com 'static', significa que a variável só "existe", naquele ficheiro
-pelo que entendi, é tipo o 'private' em JAVA
+pelo que entendi, é tipo o 'private' ou o 'final' em JAVA
 
 Extra: Quando queremos ir buscar uma variável de outro ficheiro, é fazer 'extern type nomeVariável'
 (Isto só é possivel se a função no ficheiro onde se vai buscar, nao for static)
@@ -42,9 +42,9 @@ retval = recolhermos o valor de retorno da thread
         Guião 09
 ##########################
 d)
-  i) --> Só existe um 'value' partilhado por tofas as thread
+  i)  --> Só existe um 'value' partilhado por todas as thread
   ii) --> dentro da função vInc(), tudo menos o ultimo delay 
-  iii) -> Diagrama do ciclo de vida das threads
+  iii)--> Diagrama do ciclo de vida das threads
 
             thread principal
                     |
@@ -114,5 +114,3 @@ void vInc(void) {
 }
 
 Desta forma, o programa já funciona corretamente, independetemente dos delays e do escalonamento, etc ...
-
-

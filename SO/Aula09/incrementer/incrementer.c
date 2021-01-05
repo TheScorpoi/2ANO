@@ -1,4 +1,4 @@
-/**
+/* *
  * Incrementing a common integer variable with / without synchronization.
  * Thread implementation using primitives from the pthread library.
  *
