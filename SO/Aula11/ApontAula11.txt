@@ -1,0 +1,143 @@
+----------------------------------------------------------------------------------------------
+---------------------------------- Apontamentos Aula 11 --------------------------------------
+----------------------------------------------------------------------------------------------
+************
+SYSTEM V IPC
+************
+Fornece-nos:
+
+Segmentos de memoria partilhada (Aula 10)
+Arrays de Semaforos (Aula 10)
+Filas de mensagens (Aula 11)
+
+As FILAS DE MENSAGENS 
+
+ 
+              P1              P2
+             ___             ___
+            |   |           |   |
+            |   |     Q1    |   |
+send Q1  <- |   |    |___|  |   | -> receive Q1- mensagem
+Mensagem    |   |      |    |   |
+            |___|    |___|  |___|
+
+*Q1 é uma lista 
+
+- O receive vai bloquear quando a fila não tem nenhuma mensagem para receber,
+neste contexto bloquear significa que não irá returnar nada, ficará bloqueado
+até q outro processo fizer um send, a mensagem irá para a fila, e o receive
+irá receber a mensagem que anteriormente estava na fila.
+
+- A comunicação entre os processos é indireta, as mensagem que o P1 envia para o P2
+vao para a fila, não há contacto direto.
+
+- O tamanho das mensagens é livre.
+
+******
+msgget
+******
+
+int msgget(key_t key, int msgflg)
+
+PARA QUE SERVE:
+criar ou aceder à fila de mensagens
+RETORNO:
+Identificador interno
+
+key_t key: identificador externo da fila
+msgflg: flags para permissões. IPC_CREAT, IPC_EXCL
+
+******
+msgctl
+******
+
+int msgctl(int msgid, int cmd, struct msqid_ds *buf)
+
+PARA QUE SERVE: Executar comandos sobre a fila
+
+RETORNO:
+
+msgid: é o valor de retorno do msgget
+cmd: comando a Executar, IPC_RMID->este cmd permite apagar uma fila
+buf: Depende do comando, e se usarmos o IPC_RMID basta passar este campo nulo, pois nao e usado
+
+
+******
+msgsnd
+******
+
+int msgsnd(int msgid, void* msgp, size_t msgsz, int msgflg)
+
+TODAS AS MENSAGENS TÊM DE SEGUIR ESTA ESTRUTUTA:
+struct msgbuf {
+    long mtype;    //funciona tipo um header, e é obrigatório, tem de ser >= 0
+    char mtext[1]; //conteudo da mensagem, na prática o tamanho desta parte é variável
+};
+
+
+PARA QUE SERVE: Para enviar mensagens
+
+msgid: é o valor de retorno do msgget
+msgp:  ponteiro para a mensagem com o header, a enviar (tem o header e depois o conteudo da msg)
+msgsz: tamanho em bytes da mensagem, sem header (so o conteudo) 
+msgflg:flags para controlar a forma como enviamos, IPC_NOWAIT, usamos na + na receção do que no envio
+
+
+******
+msgrcv
+******
+
+ssize_t msgrcv(int msgid, void* msgp, size_t msgsz, long msgtyp, int msgflg)
+
+PARA QUE SERVE:
+
+msgid: é o valor de retorno do msgget
+msgp:  ponteiro para onde queremos guardar a mensagem, com header (ponteiro para o buffer se recessao)
+msgsz: tamanho maximo que a mensagem, sem header pode ter
+msgtyp:selecionar a mensagem a receber, se = 0-> recebe a primeira msg da fila, se >0 recebe a primeira 
+msg com o header igual a msgtyp, se < 0, recebe a primeira msg com o valor mais baixo do header e o valor
+do header tem de ser menor ou igual , <=, que o valor absoluto de msgtyp
+msgflg:flags...
+
+
+mtype ----> M1  --> M2  --> M3  --> M4
+            4       2       5       4  <-- estes valores sao o header das mensagens
+
+msgrcv[msgtyp=0]
+    M1, M2, M3, M4, BLOCK
+
+msgrcv[msgtyp=4]
+    M1, M4, BLOCK
+
+msgrcv[msgtyp=-4]
+    M2, M1, M4, BLOCK
+
+
+********
+Ficha 11
+********
+
+Cliente A                       Queue -->                                  Server
+                                | |->                                            
+cliSend()                                                                  while(1)
+cliReceive() (aqui msgtyp = 0)                                                  servReceive(msg)
+                                Queue <--                                       toUpper(msg)
+Cliente B               | |->|OLA|->|BOA TARDE|                                 servSend(msg)
+
+cliSend()
+cliReceive() (aqui msgtyp = 0)
+
+
+Para resolver este problema podemos por como header de cada cliente o PID de cada processo cliente
+e depois mudar o msgtyp nos cliente para o PID do processo
+
+*********
+ADICIONAL
+*********
+
+terminal1                                                               terminal2
+Talker  (cahve 0x1234)                      FILAS                       Listener (chave 0x1234)
+                                                                    
+while(1)                                                                    while(1)
+    ler msg do teclado                                                          recebe msg da fila
+    send para a fila                                                            imprime msg no terminal

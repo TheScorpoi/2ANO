@@ -143,7 +143,7 @@ void cliSend(MESSAGE *msg)
 void cliReceive(MESSAGE *msg)
 {
     /* get response message */
-    if (msg_receive(scQueue, &container, sizeof(MESSAGE), getpid()) == -1) { 
+    if (msg_receive(scQueue, &container, sizeof(MESSAGE), 0) == -1) { 
         perror("Fail receiving message from server-client message queue");
         exit(EXIT_FAILURE);
     }
